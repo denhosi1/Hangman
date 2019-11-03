@@ -34,27 +34,31 @@
 //     request.send()
 // })
 
-const getPuzzle = async (wordCount) => {
-    const response = await fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
-    if(response.status === 200) {
-        const data = await response.json()
-        return data.puzzle
-    } else {
-        throw new Error('Unable to get puzzle')
-    }
-}
+const getPuzzle = async wordCount => {
+  const response = await fetch(
+    `http://puzzle.mead.io/puzzle?wordCount=${wordCount}`
+  );
+  if (response.status === 200) {
+    const data = await response.json();
+    return data.puzzle;
+  } else {
+    throw new Error("Unable to get puzzle");
+  }
+};
 
-const getPuzzleOld = (wordCount) => {
-    return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`).then((response) => {
-        if(response.status === 200) {
-            return response.json()
-        } else {
-            throw new Error('Unable to fetch puzzle')
-        }
-    }).then((data) => {
-        return data.puzzle
+const getPuzzleOld = wordCount => {
+  return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error("Unable to fetch puzzle");
+      }
     })
-}
+    .then(data => {
+      return data.puzzle;
+    });
+};
 
 // const getCountryDetails = (countryCode, callback) => {
 //     //Making an HTTP request
@@ -70,7 +74,7 @@ const getPuzzleOld = (wordCount) => {
 //             callback('An error has occurred', undefined)
 //         }
 //     })
-    
+
 //     request.open('GET', 'http://restcountries.eu/rest/v2/all')
 //     request.send()
 // }
@@ -89,57 +93,67 @@ const getPuzzleOld = (wordCount) => {
 //             reject('An error has occurred')
 //         }
 //     })
-    
+
 //     request.open('GET', 'http://restcountries.eu/rest/v2/all')
 //     request.send()
 // })
 
-const getCountryDetails = async (countryCode) => {
-    const response = await fetch('http://restcountries.eu/rest/v2/all')
-    if(response.status === 200) {
-        const data = await response.json()
-        return data.find((country) => country.alpha2Code === countryCode.toUpperCase())
-    } else {
-        throw new Error('Unable to fetch country details.')
-    }
-}
+const getCountryDetails = async countryCode => {
+  const response = await fetch("http://restcountries.eu/rest/v2/all");
+  if (response.status === 200) {
+    const data = await response.json();
+    return data.find(
+      country => country.alpha2Code === countryCode.toUpperCase()
+    );
+  } else {
+    throw new Error("Unable to fetch country details.");
+  }
+};
 
-const getCountryDetailsOld = (countryCode) => {
-    return fetch('http://restcountries.eu/rest/v2/all').then((response) => {
-        if(response.status === 200) {
-            return response.json()
-        } else {
-            throw new Error('Unable to fetch country details.')
-        }
-    }).then((data) => data.find((country) => country.alpha2Code === countryCode.toUpperCase()))
-}
+const getCountryDetailsOld = countryCode => {
+  return fetch("http://restcountries.eu/rest/v2/all")
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error("Unable to fetch country details.");
+      }
+    })
+    .then(data =>
+      data.find(country => country.alpha2Code === countryCode.toUpperCase())
+    );
+};
 
 const getLocationOld = () => {
-    return fetch('https://ipinfo.io/2407:7000:9d30:3400:51b7:a179:a24:4afa/json?token=4b0379da504c7a').then((response) => {
-        if(response.status === 200) {
-            return response.json()
-        }else {
-            throw new Error('Unable to get ip details')
-        }
-    })
-}
+  return fetch(
+    "https://ipinfo.io/2407:7000:9d30:3400:51b7:a179:a24:4afa/json?token=4b0379da504c7a"
+  ).then(response => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      throw new Error("Unable to get ip details");
+    }
+  });
+};
 
 const getLocation = async () => {
-    const response = await fetch('https://ipinfo.io/2407:7000:9d30:3400:51b7:a179:a24:4afa/json?token=4b0379da504c7a')
-    if(response.status === 200) {
-        return response.json()
-    }else {
-        throw new Error('Unable to get ip details')
-    }
-}
+  const response = await fetch(
+    "https://ipinfo.io/2407:7000:9d30:3400:51b7:a179:a24:4afa/json?token=4b0379da504c7a"
+  );
+  if (response.status === 200) {
+    return response.json();
+  } else {
+    throw new Error("Unable to get ip details");
+  }
+};
 
 const getCurrentCountry = async () => {
-    const location = await getLocation()
-    const country = await getCountryDetails(location.country)
-    return country
-    //Could also do the following
-    //return getCountryDetails(location.country)
-}
+  const location = await getLocation();
+  const country = await getCountryDetails(location.country);
+  return country;
+  //Could also do the following
+  //return getCountryDetails(location.country)
+};
 
 // const getPuzzleSync = () => {
 //     //Making an HTTP request
